@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "routes": 11,
+  "productsCompleted": 10,
+  "consoleProblems": [],
+  "failedRequests": [],
+  "desktopViewport": "1440x1000",
+  "mobileViewport": "390x844",
+  "screenshots": [
+    "qa/desktop-home.png",
+    "qa/mobile-home.png",
+    "qa/mobile-flow.png"
+  ]
+}

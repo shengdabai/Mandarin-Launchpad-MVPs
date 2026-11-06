@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ten evidence-led Mandarin learning micro-tools for adult learners.">
+  <meta name="theme-color" content="#f4f6f8">
+  <title>中文起飞台 · Mandarin Field Lab</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <div class="app-shell">
+    <aside class="rail" aria-label="Product navigation">
+      <div class="brand-block">
+        <p class="eyebrow">Mandarin Field Lab</p>
+        <a class="brand" href="#home" data-route="home" aria-label="Mandarin Field Lab home">
+          <span aria-hidden="true">中文</span>
+          <strong>起飞台</strong>
+        </a>
+        <p class="brand-note">Turn passive knowledge into usable Chinese.</p>
+      </div>
+
+      <nav id="product-nav" class="product-nav" aria-label="Ten micro products"></nav>
+
+      <div class="rail-foot">
+        <div class="progress-ring" id="progress-ring" aria-label="Product progress">
+          <span id="progress-count">0/10</span>
+        </div>
+        <p>Private by default.<br>Stored on this device.</p>
+      </div>
+    </aside>
+
+    <main id="workspace" class="workspace" tabindex="-1">
+      <div class="topline">
+        <p id="route-kicker">Research-backed prototype</p>
+        <div class="top-actions">
+          <button class="text-button" id="open-evidence" type="button">Evidence</button>
+          <button class="text-button danger" id="reset-data" type="button">Reset local data</button>
+        </div>
+      </div>
+      <section id="view" aria-live="polite"></section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
