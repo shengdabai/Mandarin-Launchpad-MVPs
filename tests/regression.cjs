@@ -396,6 +396,39 @@ test("unknown hash and skip link preserve the active route and timer", () => {
   assert.equal(app.intervals.size, 1);
 });
 
+for (const hash of ["#__proto__", "#constructor", "#toString", "#missing", "#workspace"]) {
+  test(`initial hash ${hash} falls back to home`, () => {
+    const app = lab({ location: { hash } });
+    assert.equal(app.run("currentRoute"), "home");
+    assert.match(app.element("#view").innerHTML, /Make your Chinese/);
+    app.hash("flow");
+    assert.equal(app.run("currentRoute"), "flow");
+  });
+}
+
+test("a valid initial hash opens the requested exercise", () => {
+  const app = lab({ location: { hash: "#cards" } });
+  assert.equal(app.run("currentRoute"), "cards");
+  assert.match(app.element("#view").innerHTML, /Make a context card/);
+});
+
+test("cloze replacement preserves escaped text and replaces only literal targets", () => {
+  const app = lab();
+  for (const [sentence, target, expected] of [
+    ['lt <img src=x onerror="alert(1)"> lt', "lt", '＿＿ &lt;img src=x onerror=&quot;alert(1)&quot;&gt; ＿＿'],
+    ["amp & amp", "amp", "＿＿ &amp; ＿＿"],
+    ["我说<你好>，再说<你好>。", "<你好>", "我说＿＿，再说＿＿。"],
+    ["我今天复习中文，明天复习。", "复习", "我今天＿＿中文，明天＿＿。"]
+  ]) {
+    app.run(`state.cards = [${JSON.stringify({ sentence, target, meaning: "<example>", due: 0, interval: 1 })}]`);
+    app.route("cards");
+    const html = app.element("#view").innerHTML;
+    assert.ok(html.includes(`<h2 lang="zh-CN">${expected}</h2>`), sentence);
+    assert.equal(html.includes("<img"), false);
+    assert.equal(html.includes("<example>"), false);
+  }
+});
+
 for (const field of ["#fix-original", "#fix-corrected", "#fix-reason"]) {
   test(`Fixbook rejects whitespace in ${field}`, () => {
     const app = lab();

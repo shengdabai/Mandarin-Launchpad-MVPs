@@ -33,6 +33,7 @@ let recoveryWarning = "";
 const recoveryKey = STORE_KEY + "-recovery-" + Date.now();
 let state = loadState();
 let currentRoute = location.hash.slice(1) || "home";
+if (!products.some((product) => product.id === currentRoute)) currentRoute = "home";
 let toastTimer = null;
 let recordingSession = null;
 let recordingUrl = null;
@@ -811,7 +812,7 @@ function renderCards() {
       </section>
       <aside class="panel accent">
         <p class="section-label">Due now · ${dueCards.length}</p>
-        ${active ? `<h2 lang="zh-CN">${escapeHTML(active.sentence).split(escapeHTML(active.target)).join("＿＿")}</h2><p class="muted">Retrieve the missing Chinese word for “${escapeHTML(active.meaning)}”.</p><details class="prompt-card"><summary>Reveal</summary><p class="hanzi-display" lang="zh-CN">${escapeHTML(active.target)}</p></details><div class="segmented"><button class="choice-button" type="button" data-card-rating="again">Again</button><button class="choice-button" type="button" data-card-rating="good">Got it</button></div>` : nextCard ? `<h2>Nothing is due.</h2><p class="muted">Next review: ${new Date(nextCard.due).toLocaleDateString()}. Scheduling stays unchanged until then.</p>` : `<p>No cards yet. Create one from a real sentence.</p>`}
+        ${active ? `<h2 lang="zh-CN">${escapeHTML(active.sentence.split(active.target).join("＿＿"))}</h2><p class="muted">Retrieve the missing Chinese word for “${escapeHTML(active.meaning)}”.</p><details class="prompt-card"><summary>Reveal</summary><p class="hanzi-display" lang="zh-CN">${escapeHTML(active.target)}</p></details><div class="segmented"><button class="choice-button" type="button" data-card-rating="again">Again</button><button class="choice-button" type="button" data-card-rating="good">Got it</button></div>` : nextCard ? `<h2>Nothing is due.</h2><p class="muted">Next review: ${new Date(nextCard.due).toLocaleDateString()}. Scheduling stays unchanged until then.</p>` : `<p>No cards yet. Create one from a real sentence.</p>`}
       </aside>
     </div>
     ${evidenceNote("SRS use is widespread, but users with thousands of cards still report a gap between vocabulary review and real comprehension or output. A generic deck would have weak differentiation.", "https://www.chinese-forums.com/forums/topic/54104-resources-for-advanced-heritage-learners/")}`;

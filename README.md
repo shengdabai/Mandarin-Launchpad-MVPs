@@ -5,7 +5,7 @@
 ## 运行
 
 ```bash
-cd "~/Desktop/01-项目开发/05-中文教学项目/17-外国人中文学习-10个MVP"
+cd /path/to/Mandarin-Launchpad-MVPs
 python3 -m http.server 4173
 ```
 
@@ -26,7 +26,14 @@ npm run test:unit
 
 浏览器测试另需 Playwright 与 Chromium，并需先在另一个终端启动上面的 HTTP 服务，再执行 `npm test`。默认使用 Playwright 的 Chromium；可通过 `CHROME_PATH` 显式指定其他浏览器。测试覆盖 11 个路由、10 个产品完成路径、错误输入、数据重载持久化、桌面/移动溢出、控制台与网络失败。
 
-当前项目未包含依赖锁文件，也未自带 Playwright，因此全新环境不能直接复现浏览器测试。维护者需先核对并补齐锁文件；之后使用 `npm ci` 安装固定依赖，并安装对应 Chromium。不要把历史 `qa/smoke-results.json` 当作本轮验收结果。
+项目已包含依赖锁文件和 Playwright 开发依赖。全新环境先安装固定依赖和对应 Chromium：
+
+```bash
+npm ci --registry=https://registry.npmjs.org
+npx --registry=https://registry.npmjs.org playwright install chromium
+```
+
+不要把历史 `qa/smoke-results.json` 当作本轮验收结果。
 
 ## 包含的 10 个产品
 
